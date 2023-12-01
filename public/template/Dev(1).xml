@@ -1,0 +1,249 @@
+<devParam name="设备数据">
+	<lidarParam>
+		<lidarCount>1</lidarCount>
+		<LidarDev>
+			<Lidar1>
+				<fLidarLatitude>36.5717260800335</fLidarLatitude>          1号基站纬度（在全域界面中显示1号基站的位置，填写此部分信息全域才能接收1号基站数据）
+				<fLidarLongitude>118.4552251862709</fLidarLongitude>		1号基站经度 （在全域界面中显示1号基站的位置，填写此部分信息全域才能接收1号基站数据）
+				<fAngleNorthT>43</fAngleNorthT>                            1号基站航向角  （在全域界面中显示1号基站的位置，填写此部分信息全域才能接收1号基站数据）
+			</Lidar1>
+			<Lidar2>
+				<fLidarLatitude>36.5710978956479</fLidarLatitude>
+				<fLidarLongitude>118.4562525415952</fLidarLongitude>
+				<fAngleNorthT>221.5</fAngleNorthT>
+			</Lidar2>
+			<Lidar3>
+				<fLidarLatitude>36.5703029989348</fLidarLatitude>
+				<fLidarLongitude>118.4572920016944</fLidarLongitude>
+				<fAngleNorthT>221</fAngleNorthT>
+			</Lidar3>
+			<Lidar4>
+				<fLidarLatitude>36.5696597123574</fLidarLatitude>
+				<fLidarLongitude>118.4581603091119</fLidarLongitude>
+				<fAngleNorthT>220</fAngleNorthT>
+			</Lidar4>
+			<Lidar5>
+				<fLidarLatitude>36.5687989140772</fLidarLatitude>
+				<fLidarLongitude>118.4593518255326</fLidarLongitude>
+				<fAngleNorthT>218</fAngleNorthT>
+			</Lidar5>
+			<Lidar6>
+				<fLidarLatitude>36.5680004332317</fLidarLatitude>
+				<fLidarLongitude>118.4605527296662</fLidarLongitude>
+				<fAngleNorthT>216.8</fAngleNorthT>
+			</Lidar6>
+			<Lidar7>
+				<fLidarLatitude>36.5672175172334</fLidarLatitude>
+				<fLidarLongitude>118.4617721289394</fLidarLongitude>
+				<fAngleNorthT>215.8</fAngleNorthT>
+			</Lidar7>
+			<Lidar8>
+				<fLidarLatitude>36.5664352440791</fLidarLatitude>
+				<fLidarLongitude>118.4630424901843</fLidarLongitude>
+				<fAngleNorthT>214.9</fAngleNorthT>
+			</Lidar8>
+			<Lidar9>
+				<fLidarLatitude>36.5659080169733</fLidarLatitude>
+				<fLidarLongitude>118.4639252722253</fLidarLongitude>
+				<fAngleNorthT>214.5</fAngleNorthT>
+			</Lidar9>
+			<Lidar10>
+				<fLidarLatitude>36.5651528429269</fLidarLatitude>
+				<fLidarLongitude>118.4649644605825</fLidarLongitude>
+				<fAngleNorthT>246.9</fAngleNorthT>
+			</Lidar10>
+		</LidarDev>
+		<fTranslation>                               旋转参数
+			<fTranslationX>20</fTranslationX>
+			<fTranslationY>3</fTranslationY>
+			<fTranslationZ>40</fTranslationZ>
+		</fTranslation>
+		<forwardDstDev>                         交通流数据发送IP端口号      （用于将车流数据发送主控）
+			<Dev1>10.7.204.19-19355</Dev1>
+			<Dev2>10.7.206.82-5050</Dev2>
+		</forwardDstDev>
+		<forwardEventDstDev>                      事件数据发送IP端口号  （用于将瞬时统计数据、统计数据 、交通事件数据数据发送主控）
+			<Dev1>10.7.204.19-19355</Dev1>
+		</forwardEventDstDev>
+		<forwardCloudAllTrackerDstDev>             
+			<nAllTracker_Id>1</nAllTracker_Id>         全域编号     （用于云全域区分不同的全域数据）
+			<strIpPort>192.168.5.100-6555</strIpPort>  云全域IP端口号  （用于将此全域的车流数据、瞬时统计、统计、事件数据发送给云全域）
+		</forwardCloudAllTrackerDstDev>
+		<forwardMecDev>
+			<Dev1>192.3.20.81-50806</Dev1>
+			<Dev2>192.3.16.25-50806</Dev2>
+			<Dev3>192.3.20.171-50806</Dev3>
+		</forwardMecDev>
+		<forwardRsuDev>
+			<Dev1>192.3.19.6-50800</Dev1>
+			<Dev2>192.3.19.26-50800</Dev2>
+			<Dev3>192.3.19.46-50800</Dev3>
+			<Dev4>192.3.19.66-50800</Dev4>
+			<Dev5>192.3.19.86-50800</Dev5>
+			<Dev6>192.3.19.106-50800</Dev6>
+			<Dev6>192.3.19.126-50800</Dev6>
+		</forwardRsuDev>
+		<nstartStationId>1</nstartStationId>          首基站在主控系统中的编号（主控会对项目中所有基站有一个整体的编号编排，一个全域可能只接入一部分基站，此参数填写全域首基站在主控整体的编号编排的编号，其后的基站编号会依次加1）
+		<nNetworkPort>0</nNetworkPort>
+		<bUseCropRoi>0</bUseCropRoi>
+		<bUseBgdFrameFilter>1</bUseBgdFrameFilter>
+		<bLiveUpdateBgdFrame>0</bLiveUpdateBgdFrame>
+		<bUseVoxelPoints>1</bUseVoxelPoints>
+		<bRotationTranslation>1</bRotationTranslation>
+		<nUdpServicePort>5556</nUdpServicePort>          接收单基站数据的端口号  （全域接收单基站数据的通信端口号，用于接收单基站数据）
+		<n2k1vPort>9001</n2k1vPort>                      接收两客一危数据的端口号 （全域接收两客一危数据的通信端口号，用于接收两客一危数据）
+		<nEventFdBkPort>17003</nEventFdBkPort>
+		<bSendResult>1</bSendResult>                   
+		<bHighSpeed>1</bHighSpeed>
+		<iRadarStationNum>8</iRadarStationNum>
+		<bSendCutOff>1</bSendCutOff>
+		<fCutOffLatitude>36.4755027</fCutOffLatitude>
+		<listOtherRadarDev>
+			<Dev1>192.3.16.27</Dev1>
+			<Dev2>192.3.20.171</Dev2>
+		</listOtherRadarDev>
+	</lidarParam>
+	<cameraParam>
+		<cameraCount>0</cameraCount>
+		<CameraDev>
+			<Camera1>
+				<cameraIp>192.168.3.37</cameraIp>
+				<nChannel>1</nChannel>
+				<usr />
+				<password>wanji123</password>
+				<in_parameter>1147.9, 0, 951.6894, 0, 1143.4, 566.33, 0, 0, 1.0</in_parameter>
+				<rotate_matrix>1.06539647,-1.82687668,1.37913931</rotate_matrix>
+				<translation_matrix>43.518,171.177,74.362</translation_matrix>
+				<dist_matrix>-0.3335, 0.109, -0.00068918, 0.0013, 0</dist_matrix>
+			</Camera1>
+			<Camera2>
+				<cameraIp>192.168.3.38</cameraIp>
+				<nChannel>1</nChannel>
+				<usr />
+				<password>wanji123</password>
+				<in_parameter>1152.4, 0, 959.4092, 0, 1147.4, 550.0649, 0, 0, 1.0</in_parameter>
+				<rotate_matrix>0.01584703,-2.5926309,1.76196554</rotate_matrix>
+				<translation_matrix>87.55,236.735,-122.542</translation_matrix>
+				<dist_matrix>-0.3341,0.1085,0.000413,0.00070638, 0</dist_matrix>
+			</Camera2>
+			<Camera3>
+				<cameraIp>192.168.3.39</cameraIp>
+				<nChannel>1</nChannel>
+				<usr />
+				<password>wanji123</password>
+				<in_parameter>1148,0,959.0876,0,1144.6,549.3107,0,0,1.0</in_parameter>
+				<rotate_matrix>1.81546331,-0.65539876,0.467501</rotate_matrix>
+				<translation_matrix>307.328,158.564,77.019</translation_matrix>
+				<dist_matrix>-0.3195, 0.0919, -0.000867, -0.000868, 0</dist_matrix>
+			</Camera3>
+			<Camera4>
+				<cameraIp>192.168.3.36</cameraIp>
+				<nChannel>1</nChannel>
+				<usr />
+				<password>wanji123</password>
+				<in_parameter>1167.2, 0, 972.8049, 0, 1162.3, 554.0905, 0, 0, 1.0</in_parameter>
+				<rotate_matrix>0.75649687,2.13602239,-1.5521844</rotate_matrix>
+				<translation_matrix>-202.343,262.929,-257.586</translation_matrix>
+				<dist_matrix>-0.3316,0.1042,0.0011,0.001, 0</dist_matrix>
+			</Camera4>
+		</CameraDev>
+
+	</cameraParam>
+	<pcAlgParam>
+		<nSyncIdLimitPcOnline>1</nSyncIdLimitPcOnline>
+		<nSyncIdLimitPcOffline>0</nSyncIdLimitPcOffline>
+		<fCropBackSize>0.5</fCropBackSize>
+		<nBmpSize>2000</nBmpSize>
+		<fRadius>2.3</fRadius>
+		<nLastCount>640851</nLastCount>
+		<fDis>70</fDis>
+		<fMinZ>-4.5</fMinZ>
+		<fMaxZ>0</fMaxZ>
+		<switchFlag>1</switchFlag>
+		<fConeThreshold>0.75</fConeThreshold>
+		<fMaxAge>4</fMaxAge>
+		<fMinHits>5</fMinHits>
+	</pcAlgParam>
+	<videoAlgParam>
+		<nSyncIdLimitVidOnline>1</nSyncIdLimitVidOnline>
+		<nSyncIdLimitVidOffline>3</nSyncIdLimitVidOffline>
+		<nResizeVideoWidth>416</nResizeVideoWidth>
+		<nResizeVideoHeight>416</nResizeVideoHeight>
+	</videoAlgParam>
+	<uiParam>
+		<bDebug>1</bDebug>             调试  （1：开启调试模式 0：关闭调试模式  用于程序调试，目前此参数会一直保持为1）
+		<bWriteLog>1</bWriteLog>       日志写入（1：开启日志写入 0：关闭日志写入  目前此参数会一直保持为1）
+		<bPrintLog>1</bPrintLog>        终端打印 （1：开启终端打印 0：关闭终端打印  目前此参数会一直保持为1）
+		<bAutoConnect>1</bAutoConnect>  自动运行 （1：开启自动运行 0：关闭自动运行  目前此参数会一直保持为1）
+		<nTimeInterval>2</nTimeInterval>
+		<nCacheFileCountLimit>0</nCacheFileCountLimit>
+		<nSaveFileSizeLimit>1099511627000</nSaveFileSizeLimit>
+		<bAbnormalRestart>0</bAbnormalRestart>
+		<fMemPercentMax>90</fMemPercentMax>
+		<fGpuPercentMax>90</fGpuPercentMax>
+		<fFpsMinLimit>8</fFpsMinLimit>
+		<strTerminalId>0100000000000001</strTerminalId>
+		<strKafkaNet>10.102.1.31:9092</strKafkaNet>
+		<strKafkaTopic>V2X_perception</strKafkaTopic>
+		<bRotatingLane>0</bRotatingLane>
+		<fRoughLanRotationX>0</fRoughLanRotationX>
+		<fRoughLanRotationY>0</fRoughLanRotationY>
+		<fRoughLanRotationZ>0</fRoughLanRotationZ>
+		<fRoughLanTranslationX>0</fRoughLanTranslationX>
+		<fRoughLanTranslationY>0</fRoughLanTranslationY>
+		<fRoughLanTranslationZ>0.0</fRoughLanTranslationZ>
+		<fFineLanRotationX>0</fFineLanRotationX>
+		<fFineLanRotationY>0</fFineLanRotationY>
+		<fFineLanRotationZ>0</fFineLanRotationZ>
+		<fFineLanTranslationX>0</fFineLanTranslationX>
+		<fFineLanTranslationY>0</fFineLanTranslationY>
+		<fFineLanTranslationZ>0</fFineLanTranslationZ>
+		<fBoxRotationAngle>0</fBoxRotationAngle>
+        <strAttachedIp>
+		<strIp1>192.168.3.182</strIp1>
+		</strAttachedIp>
+        <alone_to_together_x>0</alone_to_together_x>
+        <alone_to_together_y>0</alone_to_together_y>
+		<bFixLanAngle>0</bFixLanAngle>
+		<SoftwareStyle>0</SoftwareStyle>
+		<bSaveE1>1</bSaveE1>                          交通流数据保存   （1：开启交通流数据保存 0：关闭交通流数据保存  目前此参数会一直保持为1）
+		<bSaveEvent>1</bSaveEvent>                    事件数据保存（1：开启事件数据保存   0：关闭事件数据保存  目前此参数会一直保持为1）
+		<nPlatformB3Frequency>1</nPlatformB3Frequency>
+		<nPlatformB4Frequency>300</nPlatformB4Frequency>
+		<strMecSn>DDLDYP3</strMecSn>
+		<strOrgCode>JJL01</strOrgCode>                             orgCode字段名（填写主控提供的orgCode编号，主控用于区分不同全域）
+		<strLibCppPath>/data/InterfaceSDK/</strLibCppPath>
+		<strStationName>suidao-docker1-alltracker1</strStationName>   ui界面标识名 （填写基站编排相关编号，用于在软件界面上区分不同隧道不同docker容器）
+	</uiParam>
+	<RadarParam>
+		<RadarCount>2</RadarCount>
+		<RadarDev>
+			<Radar1>
+				<srcIp>192.168.3.93</srcIp>
+				<dstIp>192.168.3.99</dstIp>
+				<srcPort>55555</srcPort>
+				<fLidarLatitude>40.0516922</fLidarLatitude>
+				<fLidarLongitude>116.2869907</fLidarLongitude>
+				<fAngleNorthT>160.0</fAngleNorthT>
+				<npRotation1>0.15912047,-0.98725917,0.0</npRotation1>
+				<npRotation2>0.98725917,0.15912047,0.0</npRotation2>
+				<npRotation3>0.0,0.0,1.0</npRotation3>
+				<npTranslation>-0.19329705,0.26478836,-3.9</npTranslation>
+				<fOffset>1.87</fOffset>
+			</Radar1>
+			<Radar2>
+				<srcIp>192.168.3.225</srcIp>
+				<dstIp>192.168.3.99</dstIp>
+				<srcPort>55555</srcPort>
+				<fLidarLatitude>40.0516922</fLidarLatitude>
+				<fLidarLongitude>116.2869907</fLidarLongitude>
+				<fAngleNorthT>160.0</fAngleNorthT>
+				<npRotation1>-0.99563347,-0.09334878,0.0</npRotation1>
+				<npRotation2>0.09334878,-0.99563347,0.0</npRotation2>
+				<npRotation3>0.0,0.0,1.0</npRotation3>
+				<npTranslation>-25.9413007,-11.1392702,-3.9</npTranslation>
+				<fOffset>0.86</fOffset>
+			</Radar2>
+		</RadarDev>
+	</RadarParam>
+</devParam>

@@ -1,6 +1,7 @@
 declare interface Window {
   // extend the window
-  showOpenFilePicker(): any
+  showOpenFilePicker(): any,
+  showSaveFilePicker(options:any): any,
 }
 
 // with vite-plugin-vue-markdown, markdown files can be treated as Vue components

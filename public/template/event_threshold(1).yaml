@@ -1,0 +1,294 @@
+# dict
+# 常调阈值 =============================
+# 超速
+speeding_comm:
+  switch: 1  # 0-关闭该事件的检测，1-打开
+  speeding_count: 200  # ↓-放松，较短时间即可上报
+  tracking_frames: 50  # ↓-放松，较短时间即可上报
+  coin: 0.8  # ↓-放松，较低超速占比即可上报
+  hit_num_motor: 10  # ↓-放松，连续较少次数即可上报
+  hit_num_non: 10  # ↓-放松，连续较少次数即可上报
+# 慢行
+stroll_comm:
+  switch: 1  # 0-关闭该事件的检测，1-打开
+  tracking_frames: 50  # ↓-放松，较短时间即可上报
+  x_dist: 50  # ↓-放松，行驶较短距离即可上报
+  normal_rate: 0.9  # 大于该值则符合条件
+  v_err: 1.3  # 大于该值则符合条件
+  fusion_rate: 0.4  # 此项目暂未使用
+  pre_cnt_rate: 0.3  # 此项目暂未使用
+  hit_num: 20  # ↓-放松，连续较少次数即可上报
+# 非机动车 行人 闯入
+occupy_dedicated_comm:
+  switch: 0  # 0-关闭该事件的检测，1-打开
+  motor_l: 4  # ↑-放松，较小尺寸目标即可上报
+  motor_v: 12  # ↑-放松，不必较低速度即可上报
+  non_motor:  # 非机动车
+    v_err: 2  # 大于该值则符合条件
+    pre_cnt_rate: 0.5  # ↑-放松，不必较低预测帧占比即可上报
+  pedestrian:  # 行人
+    tracking_frames: 5  # ↓-放松，较短时间即可上报
+    pedestrain_v: 4  # ↑-放松，不必较低速度即可上报
+    delta_x_diff: 0.3  # 大于该值则符合条件
+    pre_cnt_rate: 0.2  # ↑-放松，不必较低预测帧占比即可上报
+  hit_num_nonmotor: 10  # ↓-放松，连续较少次数即可上报
+  hit_num_pedestrain: 10  # ↓-放松，连续较少次数即可上报
+# 占用应急车道
+occupy_emergency_comm:
+  switch: 1  # 0-关闭该事件的检测，1-打开
+  pre_cnt_rate: 0.5  # ↑-放松，较高预测帧占比即可上报
+  hit_num: 8  # ↓-放松，连续较少次数即可上报
+# 违停
+illegal_stop_comm:
+  switch: 1  # 0-关闭该事件的检测，1-打开
+  v_min: 0.6  # ↑-放松，不必较低速度即可上报
+  dis_min: 0.6  # ↑-放松，不必较短移动距离即可上报
+  tracking_frames: 10  # ↓-放松，较短时间即可上报
+  pre_cnt_rate: 0.3  # ↑-放松，不必较低预测帧占比即可上报
+  fusion_rate: 0.8  # ↓-放松，较低融合占比也可上报
+  dist_range: 0.5  # ↓-放松，较近距离有车认为另一违事件上报
+  continue_time: 0.3  # ↓-放松，较短时间即可上报
+# 逆行
+retrograde_comm:
+  switch: 1  # 0-关闭该事件的检测，1-打开
+  tracking_frames: 10  # ↓-放松，较短时间即可上报
+  tracking_for_rate: 10  # 计算前进占比的积累数量
+  retrograde_rate: 0.6  # ↓-放松，较低前进占比也可上报
+  motor:  # 机动车
+    pre_cnt_rate: 0.2  # ↑-放松，较高预测帧占比即可上报
+    fusion_rate: 0.2  # ↓-放松，较低融合占比也可上报
+  non_motor:  # 非机动车
+    pre_cnt_rate: 0.3  # ↑-放松，较高预测帧占比即可上报
+  hit_num_motor: 50  # ↓-放松，连续较少次数即可上报
+  hit_num_non: 50  # ↓-放松，连续较少次数即可上报
+# 变道
+change_lanes_comm:
+  switch: 1  # 0-关闭该事件的检测，1-打开
+  gap: 1.3  # ↓-放松，较短时间即可上报
+  pre_cnt_rate: 0.3  # ↑-放松，较高预测帧占比即可上报
+  un_match_rate: 0.1  # ↑-放松，济青未使用
+  match_status1: 1  # DIS距离匹配-2, IOU匹配-1, UN未匹配-0
+  match_status2: 2  # DIS距离匹配-2, IOU匹配-1, UN未匹配-0
+  continue_time: 1  # ↓-放松，较短时间即可上报
+# 抛撒物
+spills_detect_comm:
+  switch: 0  # 0-关闭该事件的检测，1-打开
+  spills_l: 3  # 根据所需尺寸调整
+  coin: 0.5  # 设置置信度
+  hit_num: 20  # ↓-放松，连续较少次数即可上报
+# 施工
+construction_sign_comm:
+  switch: 0  # 0-关闭该事件的检测，1-打开
+  hit_num: 5  # ↓-放松，连续较少次数即可上报
+# 事故
+accident_detect_comm:
+  switch: 0  # 0-关闭该事件的检测，1-打开
+  coin: 0.2  # ↓-放松，不必较高置信度则可上报
+  top_speed: 5  # ↑-放松
+  top_occupancy: 0.2  # ↓-放松
+# 拥堵
+congestion_detect_comm:
+  switch: 0  # 0-关闭该事件的检测，1-打开
+  hit_num: 5  # ↓-放松，连续较少次数即可上报
+# 刹车
+emergency_brake_comm:
+  switch: 1  # 0-关闭该事件的检测，1-打开
+  tracking_frames: 20  # ↓-放松，较短时间即可上报
+  delta_v: 5.5  # ↓-放松，较小速度差即可上报
+  pre_cnt_rate: 0.5  # ↑-放松，较高预测帧占比即可上报
+  coin: 0.8  # ↓-放松，不必较高置信度则可上报
+  hit_num: 2  # ↓-放松，连续较少次数即可上报
+
+# 其他阈值 ===================================
+# 超速
+speeding_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  max_v: 140  # ↓-放松，较低速度即可上报
+  id_count_num: 50  # ↓-放松，较短时间即可上报
+  acceleration: 2  # ↓-放松，不够稳定也可上报
+  acc_num: 8  # ↓-放松，不够稳定也可上报
+  end_v: 120  # ↑-放松，未降至常规速度即可上报
+# 慢行
+stroll_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  min_v: 55  # ↑-放松，较高速度即可上报
+  motor_l: 3  # ↓-放松，较小尺寸目标即可上报
+  acceleration: 1  # ↓-放松，不够稳定也可上报
+  acc_num: 8  # ↓-放松，不够稳定也可上报
+  neighbour_pc_num: 1
+  pc_car_num: 8  # ↑-放松，较多车辆也不记为拥堵，而进入慢行判定
+  v_std_err: 1  # ↑-放松，速度标准差较大也可上报
+  end_v1: 55  # ↓-放松，未升至常规速度即可上报
+  end_v2: 1  # ↑-放松，不是变为停车也可上报
+
+# 闯入
+occupy_dedicated_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  non_motor:
+    v_std_err: 1  # ↑-放松，速度标准差较大也可上报
+    l_std_err: 1  # ↑-放松，车长标准差较大也可上报
+  pedestrian:
+    v2: 10
+    pos_anno_vel_coin: 0.2  # ↓-放松，不必较高置信度则可上报
+    pos_anno_coin: 0.3  # ↓-放松，不必较高置信度则可上报
+# 占用应急车道
+occupy_emergency_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  motor_l: 3  # ↓-放松，较小长度也可上报
+  l_err: 3  # ↓-放松，较小长度也可上报
+  v_std_err: 1  # ↑-放松，标准差较大也可上报
+  coin: 0.5  #
+  l_std_err: 1  # ↑-放松，较大标准差也可上报
+  pos_anno_vel_coin: 0.7  # ↓-放松，不必较高置信度则可上报
+  pos_anno_coin: 0.7  # ↓-放松，不必较高置信度则可上报
+  x_mean_err: 1  # ↑-放松
+  x_std_err: 1  # ↑-放松，较大标准差也可上报
+  end_lane: 99  # 非常规车道车道号
+# 违停
+illegal_stop_rare:
+  ignore_region_num: 2  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  ignore_x_left_2: 0  # 抠除区域-左边界
+  ignore_x_right_2: 1000  # 抠除区域-右边界
+  ignore_y_top_2: 1000  # 抠除区域-上边界
+  ignore_y_bottom_2: 0  # 抠除区域-下边界
+  x_left: 0  # 检测变道的区域-左边界，根据所需范围调整
+  x_right: 1933  # 检测变道的区域-右边界，根据所需范围调整
+  y_top: 100  # 检测变道的区域-上边界，根据所需范围调整
+  y_bottom: -953  # 检测变道的区域-下边界，根据所需范围调整
+  motor_l: 3
+  v_std_err: 1
+  coin: 0.5
+  l_std_err: 1
+  pos_anno_vel_coin: 0.7
+  pos_anno_coin: 0.7
+  x_mean_err: 1
+  camera_rate: 0.8
+  v: 0.8
+  end_v: 1
+# 逆行
+retrograde_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  cos90: 0
+  coin_coeff: 0.7
+  motor:
+    motor_l: 3
+    coin: 0.5
+    l_std_err: 1
+    pos_anno_vel_coin: 0.7
+    pos_anno_coin: 0.7
+    surrended_v: 50
+  non_motor:
+    motor_l: 3
+    coin: 0.5
+    l_std_err: 1
+    pos_anno_vel_coin: 0.7
+    pos_anno_coin: 0.7
+    fusion_rate: 0.5
+  end_normal_rate: 0.4
+# 变道
+change_lanes_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  x_left: -10000  # 检测变道的区域-左边界，根据所需范围调整
+  x_right: 10000  # 检测变道的区域-右边界，根据所需范围调整
+  y_top: 10000  # 检测变道的区域-上边界，根据所需范围调整
+  y_bottom: -10000  # 检测变道的区域-下边界，根据所需范围调整
+  id_list_len: 20
+  tracking_frames: 10
+  history_lane_num: 1
+  delta_x_coeff: 1.5
+  coin: 0.5
+  pos_anno_coin: 0.1
+  pos_anno_vel_coin: 0.1
+  v_std_err: 3
+  l_std_err: 1
+  l_err: 3
+  x_diff_err: 2
+  fusion: 2
+  w_coeff: 0.5
+  l_coeff: 1.5
+  hit_num: 5
+# 抛撒物
+spills_detect_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+# 施工
+construction_sign_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  sign_l: 3
+  coin_add: 0.2
+  coin_bycone: 0.3
+  coin_bycons: 0.1
+  pc_num: 2
+# 事故
+accident_detect_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  continue_stop_num: 1
+  sorted_id_num: 1
+  id_behind_num: 0
+  headway_space: 3.5
+  id_front_num: 0
+  v_move: 2
+  diff_rate: 5
+  people_occupy_num: 1
+  occupancy: 3
+  occdf: 0.12
+  occrdf: 0.75
+  docctd: 0.65
+# 拥堵
+congestion_detect_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  trk_num: 2
+  end_target_num: 1
+  end_mean_v: 20
+# 刹车
+emergency_brake_rare:
+  ignore_region_num: 0  # 抠除区域个数
+  ignore_x_left_1: 0  # 抠除区域-左边界
+  ignore_x_right_1: 0  # 抠除区域-右边界
+  ignore_y_top_1: 0  # 抠除区域-上边界
+  ignore_y_bottom_1: 0  # 抠除区域-下边界
+  v_std_err: 1
+  l_std_err: 1

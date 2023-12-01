@@ -1,72 +1,111 @@
-const xmlToJson = (xml: any) => {
-  // 创建空对象以存储转换后的 JSON 数据
-  const obj:any = {};
+const assignIds = (node:any) => {
+  const assignIdToNode = (el:any) => {
+    el.setAttribute('id', `node_${Math.floor(Math.random() * 1000)}`);
+  };
 
-  if (xml.nodeType === 1) { // 节点类型为元素节点
-    // 如果元素节点有属性，将其添加到 JSON 对象中
-    if (xml.attributes.length > 0) {
-      obj['attributes'] = {};
-      for (let i = 0; i < xml.attributes.length; i++) {
-        const attribute:any = xml.attributes.item(i);
-        obj['attributes'][attribute.nodeName] = attribute.nodeValue;
+  if (node.nodeType === Node.ELEMENT_NODE) {
+    assignIdToNode(node);
+    if (node.hasChildNodes()) {
+      for (let i = 0; i < node.childNodes.length; i++) {
+        assignIds(node.childNodes[i]);
       }
     }
-  } else if (xml.nodeType === 3) { // 节点类型为文本节点
-    obj['value'] = xml.nodeValue.trim();
   }
+};
 
-  // 处理子节点
-  if (xml.hasChildNodes()) {
-    for (let i = 0; i < xml.childNodes.length; i++) {
-      const item = xml.childNodes.item(i);
-      const nodeName = item.nodeName;
-      if(nodeName==='#text' && xmlToJson(item).value===''){
-        continue
-      }else{
-        // 如果节点已存在于 JSON 对象中，则创建数组存储其值
-        if (typeof obj[nodeName] === 'undefined') {
-          obj[nodeName] = xmlToJson(item);
-        } else {
-          if (typeof obj[nodeName].push === 'undefined') {
-            const old = obj[nodeName];
-            obj[nodeName] = [];
-            obj[nodeName].push(old);
-          }
-          obj[nodeName].push(xmlToJson(item));
+const xmlToJson = (xml:any) => {
+  assignIds(xml.documentElement); // 为xmlDoc的根节点设置ID
+  const traverse = (node:any) => {
+    const obj:any = {};
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      obj['nodeName'] = node.nodeName;
+
+      // if (node.attributes.length > 0) {
+      //   obj['attributes'] = {};
+      //   for (const attribute of node.attributes) {
+      //     obj['attributes'][attribute.nodeName] = attribute.nodeValue;
+      //   }
+      // }
+    } else if (node.nodeType === Node.TEXT_NODE) {
+      if (node.nodeValue.trim() === '') {
+        return null;
+      }
+      obj['value'] = node.nodeValue.trim();
+    }
+
+    const children = [];
+    for (const child of node.childNodes) {
+      const childObj = traverse(child);
+      if (childObj) {
+        children.push(childObj);
+      }
+    }
+
+    if (children.length > 0) {
+      obj['children'] = children;
+    }
+
+    if (node.nodeType != Node.TEXT_NODE && node.nodeType === Node.ELEMENT_NODE) {
+      const nodeId = node.getAttribute('id');
+      const name = node.getAttribute('name');
+    
+      if (nodeId) {
+        obj['id'] = nodeId;
+        if (name!=null) {
+          obj['name'] = name;
         }
       }
     }
-  }
-  return obj;
-}
+
+    return obj;
+  };
+
+  return traverse(xml);
+};
 
 interface Tree {
   id: string
   label: string,
   name?: string,
+  domId?: string,
   children?: Tree[]
 }
-const convertToTreeFormat = (data:any):Tree[] => {
+const convertToTreeFormat = (data: any): Tree[] => {
+  console.log("Processing node:", data.nodeName);
+
   // 若为叶子节点，返回value和label
-  if (data.hasOwnProperty("#text") && Object.keys(data).length === 1) {
-    return [{ id: data["#text"].value, label: data["#text"].value}];
+  if (!data.hasOwnProperty("id")) {
+    console.log("Leaf node found:", data.nodeName);
+    return [{ id: data.value, label: data.value }];
   }
 
-  const children:Tree[] | Tree = [];
-  for (const key in data) {
-    if (key !== "#text") {
-      const child:Tree = { id: key, label: key ,name: key};
+  const children: Tree[] = [];
 
-      if (Array.isArray(data[key])) {
-        child.children = data[key].map((item: any) => convertToTreeFormat(item));
-      } else {
-        child.children = convertToTreeFormat(data[key]);
-      }
+  console.log("Processing children of node:", data.nodeName);
 
-      children.push(child);
+  // 处理不同类型的子节点结构
+  if (Array.isArray(data.children)) {
+    for (const childNode of data.children) {
+      console.log("Child node:", childNode.nodeName);
+      const childTree = convertToTreeFormat(childNode);
+      children.push(...childTree); // 扁平化子节点数组并添加到当前节点的 children 中
     }
+  } else if (data.children) {
+    const childTree = convertToTreeFormat(data.children);
+    children.push(...childTree); // 扁平化子节点数组并添加到当前节点的 children 中
   }
 
-  return children;
-}
+  const currentNode: Tree = {
+    id: data.nodeName,
+    label: data.nodeName,
+    name:  data.name? data.name:data.nodeName,
+    domId: data.id,
+    children: children // 直接设置子节点数组
+  };
+
+  console.log("Processed children of node:", data.nodeName);
+  return [currentNode];
+};
+
+
 export {xmlToJson,convertToTreeFormat}

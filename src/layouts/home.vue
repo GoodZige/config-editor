@@ -19,12 +19,18 @@ const selectItem = (index: any, indexPath: any, item: any, routeResult: any) => 
 <template>
   <main h-screen text="center gray-700 dark:gray-200">
     <div flex h-screen>
-      <el-menu default-active="/editor/xmlEditor" class="el-menu-vertical-demo" :collapse="false" @open="handleOpen" @close="handleClose"
+      <el-menu default-active="/editor/xmlTemplateEditor" class="el-menu-vertical-demo" :collapse="false" @open="handleOpen" @close="handleClose"
         :router="true" @select="selectItem">
+        <el-menu-item index="/editor/xmlTemplateEditor">
+          <el-icon><i-ep-home-filled /></el-icon>
+          <template #title>
+            模板编辑器
+          </template>
+        </el-menu-item>
         <el-menu-item index="/editor/xmlEditor">
           <el-icon><i-ep-home-filled /></el-icon>
           <template #title>
-            编辑器
+            xml编辑器
           </template>
         </el-menu-item>
         <el-sub-menu index="2">
