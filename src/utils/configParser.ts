@@ -1,6 +1,9 @@
+let idCounter = 0;
+let leafIdCounter = 0;
 const assignIds = (node:any) => {
   const assignIdToNode = (el:any) => {
-    el.setAttribute('id', `node_${Math.floor(Math.random() * 1000)}`);
+    idCounter++;
+    el.setAttribute('id', `node_${idCounter}`);
   };
 
   if (node.nodeType === Node.ELEMENT_NODE) {
@@ -75,8 +78,9 @@ const convertToTreeFormat = (data: any): Tree[] => {
 
   // 若为叶子节点，返回value和label
   if (!data.hasOwnProperty("id")) {
-    console.log("Leaf node found:", data.nodeName);
-    return [{ id: data.value, label: data.value }];
+    // console.log("Leaf node found:", data.nodeName);
+    leafIdCounter++;
+    return [{ id: `node_${leafIdCounter}`, label: data.value }];
   }
 
   const children: Tree[] = [];
@@ -96,7 +100,7 @@ const convertToTreeFormat = (data: any): Tree[] => {
   }
 
   const currentNode: Tree = {
-    id: data.nodeName,
+    id: data.id,
     label: data.nodeName,
     name:  data.name? data.name:data.nodeName,
     domId: data.id,

@@ -16,6 +16,7 @@ declare module 'vue' {
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTag: typeof import('element-plus/es')['ElTag']
     ElTreeV2: typeof import('element-plus/es')['ElTreeV2']
     IEpDocument: typeof import('~icons/ep/document')['default']
     IEpHomeFilled: typeof import('~icons/ep/home-filled')['default']

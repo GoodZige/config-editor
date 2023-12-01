@@ -18,7 +18,31 @@ const props = {
 
 let myTreeData = ref<Tree[]>([]) //传入tree组件的数据
 let myTree = ref() //获取tree组件实例
-let xmlDoc:any = null;
+let xmlDoc: any = null;
+
+// `${process.env.BASE_URL}models/vehicle/gltf/zixingche.glb`
+
+const loadXmlTemplate = async () => {
+  try {
+    const dirHandle = await window.showDirectoryPicker();
+    for await (const item of dirHandle.values()) {
+      console.log(item)
+    }
+
+    const fileHandle = await window.showOpenFilePicker();
+    const file = await fileHandle[0].getFile();
+    let fileContents = await file.text();
+    // 假设fileContents是你的XML字符串或文档对象
+    const parser = new DOMParser();
+    xmlDoc = parser.parseFromString(fileContents, 'text/xml');
+    const json = xmlToJson(xmlDoc);
+    myTreeData.value = convertToTreeFormat(json.children[0])
+
+  } catch (error) {
+    console.error('Error accessing file:', error);
+  }
+}
+
 const uploadXml = async () => {
   try {
     const fileHandle = await window.showOpenFilePicker();
@@ -28,16 +52,17 @@ const uploadXml = async () => {
     const parser = new DOMParser();
     xmlDoc = parser.parseFromString(fileContents, 'text/xml');
     const json = xmlToJson(xmlDoc);
+    console.log('json',json.children[0]);
     myTreeData.value = convertToTreeFormat(json.children[0])
-    
+
   } catch (error) {
     console.error('Error accessing file:', error);
   }
 }
 
-const saveXml = async (jsonData:any) => {
+const saveXml = async (jsonData: any) => {
   // 根据 domId 查找相应的 DOM 节点
-  const updateDom = (data:any) => {
+  const updateDom = (data: any) => {
     const element = xmlDoc.getElementById(data.domId);
 
     if (element) {
@@ -65,12 +90,12 @@ const saveXml = async (jsonData:any) => {
 
   // 调用更新函数，传入 domId 和 JSON 数据
   updateDom(jsonData[0]);
-  console.log('保存的xml',xmlDoc);
+  console.log('保存的xml', xmlDoc);
   saveUpdatedXml(xmlDoc);
 };
 
 // 使用 showSaveFilePicker() 请求用户选择文件并保存
-const saveUpdatedXml = async (xmlDoc:any) => {
+const saveUpdatedXml = async (xmlDoc: any) => {
   const updatedXmlString = new XMLSerializer().serializeToString(xmlDoc);
 
   try {
@@ -96,15 +121,15 @@ const saveUpdatedXml = async (xmlDoc:any) => {
 watch(() => myTreeData.value, (newValue, oldValue) => {
   console.log("修改成功", newValue);
 }, { deep: true })
-const changeTreeNode = (key:string, name:string, input:string,event:any) => {
+const changeTreeNode = (data: any, name: string, input: string, event: any) => {
   event.stopPropagation();
-  console.log(myTree.value.getNode(key));
-  let node = myTree.value.getNode(key)
+  console.log(myTree.value.getNode(data));
+  let node = myTree.value.getNode(data)
   console.log(input);
-  node.data.name = input
+  node.data.label = input
   console.log(myTreeData);
 }
-const preventClick = (event:any)=>{
+const preventClick = (event: any) => {
   event.stopPropagation();
 }
 </script>
@@ -117,15 +142,20 @@ const preventClick = (event:any)=>{
     <button w40 btn m4 @click="uploadXml">上传文件</button>
     <el-tree-v2 :data="myTreeData" :props="props" :width="500" :height="700" ref="myTree">
       <template #default="{ node, data }">
-        <div v-if="node.isLeaf">
-          <span class="prefix" :class="{ 'is-leaf': node.isLeaf }">[{{ node.label }}]</span>
+        <div flex flex-justify-between wfull v-if="node.isLeaf">
+          <span class="prefix" :class="{ 'is-leaf': node.isLeaf }">[{{ data.label }}]</span>
+          <div mr8>
+            <el-input size="small" v-model="data.input" @click="preventClick" placeholder="请输入参数名称" clearable
+              style="width: 300px">
+            </el-input>
+            <el-button size="small" type="primary"
+              @click="changeTreeNode(data, data.name, data.input, $event)">修改</el-button>
+          </div>
         </div>
         <div flex v-else>
           <div class="prefix">[{{ node.label }}]</div>
-          <el-input size="small" v-model="data.input" @click="preventClick" placeholder="请输入参数名称" clearable style="width: 300px">
-            <template #prepend>{{ data.name }}</template>
-          </el-input>
-          <el-button size="small" type="primary" @click="changeTreeNode(node.key, data.name, data.input,$event)">修改</el-button>
+          <el-tag class="mx-1" size="small">{{ data.name }}</el-tag>
+
         </div>
       </template>
     </el-tree-v2>
@@ -141,10 +171,12 @@ const preventClick = (event:any)=>{
   width: 200px;
   padding: none;
 }
+
 .prefix {
   color: var(--el-color-primary);
   margin-right: 10px;
-  width: 200px;
+  max-width: 400px;
+  overflow: hidden;
 }
 
 .prefix.is-leaf {

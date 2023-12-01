@@ -1,6 +1,7 @@
 declare interface Window {
   // extend the window
   showOpenFilePicker(): any,
+  showDirectoryPicker(): any,
   showSaveFilePicker(options:any): any,
 }
 
